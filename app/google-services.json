@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1074194858286",
+    "firebase_url": "https://contentdatabase-ff384.firebaseio.com",
+    "project_id": "contentdatabase-ff384",
+    "storage_bucket": "contentdatabase-ff384.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074194858286:android:818e0a123e04e64f",
+        "android_client_info": {
+          "package_name": "com.example.natalia.diary_lmu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074194858286-2hvssv79j829mm5qh8s8llp8ssr97b10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOv6dEHlRAlHSIHs0iQGY7DEZ8QvXPPIw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
