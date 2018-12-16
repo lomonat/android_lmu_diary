@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFF">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="M"
+                    android:textSize="120dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/food_simple" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFF">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="T"
+                    android:textSize="120dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/food_simple" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFF">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="W"
+                    android:textSize="120dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/food_simple" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFF">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="T"
+                    android:textSize="120dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/food_simple" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFF">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="F"
+                    android:textSize="120dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/food_simple" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFF">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="S"
+                    android:textSize="120dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/food_simple" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#FFF">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="S"
+                    android:textSize="120dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/food_simple" />
+            </TableRow>
+        </TableLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

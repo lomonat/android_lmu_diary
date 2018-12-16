@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/day_time_tv"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="#0F4C3A"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="14.12.2018  Friday  Sunny"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/content_tv1"
+                android:layout_width="match_parent"
+                android:layout_height="186dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Today was a little better. I texted Sarah last night asking if she wanted to have lunch with me today, just the two of us, and she said sure. I told her that just because I’m hanging out with Jane, it doesn’t change anything about our friendship. After all, we’ve been friends since first grade! "
+                android:textColor="#000" />
+
+            <ImageView
+                android:id="@+id/simpleImageView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/food_simple" />
+
+            <TextView
+                android:id="@+id/content_tv2"
+                android:layout_width="match_parent"
+                android:layout_height="186dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="I thought it would be fun for the three of us to get some coffee after school and try to make everything better. I’m not sure how well that worked, because even though Jane was trying really hard to be nice to Sarah, I could tell that Sarah was being really fake with Jane. "
+                android:textColor="#000" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
