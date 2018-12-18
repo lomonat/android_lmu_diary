@@ -25,20 +25,20 @@
 
         </FrameLayout>
 
-    <TextView
-        android:id="@+id/textview_book_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        tools:text="Are You My Mother"
-        android:textStyle="bold"
-        android:paddingTop="4dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:gravity="center_horizontal"/>
+    <!--<TextView-->
+        <!--android:id="@+id/textview_diary_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="12sp"-->
+        <!--tools:text="Are You My Mother"-->
+        <!--android:textStyle="bold"-->
+        <!--android:paddingTop="4dp"-->
+        <!--android:paddingLeft="8dp"-->
+        <!--android:paddingRight="8dp"-->
+        <!--android:gravity="center_horizontal"/>-->
 
     <TextView
-        android:id="@+id/textview_book_author"
+        android:id="@+id/textview_diary_summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp"

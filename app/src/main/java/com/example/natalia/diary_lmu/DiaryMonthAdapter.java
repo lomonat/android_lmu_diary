@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.net.Uri;
 
 import com.squareup.picasso.Picasso;
 
@@ -42,36 +43,35 @@ public class DiaryMonthAdapter extends BaseAdapter{
             convertView = layoutInflater.inflate(R.layout.linearlayout_diary, null);
 
             final ImageView imageViewCoverArt = convertView.findViewById(R.id.imageview_cover_art);
-            final TextView nameTextView = convertView.findViewById(R.id.textview_book_name);
-            final TextView authorTextView = convertView.findViewById(R.id.textview_book_author);
+            final TextView summaryTextView = convertView.findViewById(R.id.textview_diary_summary);
             final ImageView imageViewFavorite = convertView.findViewById(R.id.imageview_favorite);
 
-            final ViewHolder viewHolder = new ViewHolder(nameTextView, authorTextView, imageViewCoverArt, imageViewFavorite);
+            final ViewHolder viewHolder = new ViewHolder(summaryTextView, imageViewCoverArt, imageViewFavorite);
             convertView.setTag(viewHolder);
         }
 
         final ViewHolder viewHolder = (ViewHolder)convertView.getTag();
-//    viewHolder.imageViewCoverArt.setImageResource(book.getImageResource());
-        viewHolder.nameTextView.setText(mContext.getString(diary.getName()));
-        viewHolder.authorTextView.setText(mContext.getString(diary.getAuthor()));
-        viewHolder.imageViewFavorite.setImageResource(diary.getIsFavorite() ? R.drawable.star_enabled : R.drawable.star_disabled);
+        viewHolder.imageViewCoverArt.setImageResource(diary.getImageResource());
+        viewHolder.summaryTextView.setText(mContext.getString(diary.getSummary()));
 
-        Picasso.get().load(diary.getImageUrl()).into(viewHolder.imageViewCoverArt);
+        String dayIconName = "icons8_calendar_" + String.valueOf(position + 1) + "_80";
+        Uri dayIconUri=Uri.parse("android.resource://com.example.natalia.diary_lmu/drawable/" + dayIconName);
+        viewHolder.imageViewDayIcon.setImageURI(dayIconUri);
+
+        Picasso.get().load(diary.getImageUrl()).error(R.drawable.horton).into(viewHolder.imageViewCoverArt);
 
         return convertView;
     }
 
     private class ViewHolder {
-        private final TextView nameTextView;
-        private final TextView authorTextView;
+        private final TextView summaryTextView;
         private final ImageView imageViewCoverArt;
-        private final ImageView imageViewFavorite;
+        private final ImageView imageViewDayIcon;
 
-        public ViewHolder(TextView nameTextView, TextView authorTextView, ImageView imageViewCoverArt, ImageView imageViewFavorite) {
-            this.nameTextView = nameTextView;
-            this.authorTextView = authorTextView;
+        public ViewHolder( TextView summaryTextView, ImageView imageViewCoverArt, ImageView imageViewDayIcon) {
+            this.summaryTextView = summaryTextView;
             this.imageViewCoverArt = imageViewCoverArt;
-            this.imageViewFavorite = imageViewFavorite;
+            this.imageViewDayIcon = imageViewDayIcon;
         }
     }
 
