@@ -63,6 +63,9 @@ public class signUp extends AppCompatActivity implements View .OnClickListener{
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "User registered successful", Toast.LENGTH_LONG).show();
+                    finish();
+                    startActivity(new Intent(SignUp.this, HomeActivity.class));
+
                 } else {
                 Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
