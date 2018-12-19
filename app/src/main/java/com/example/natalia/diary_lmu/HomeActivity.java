@@ -1,20 +1,18 @@
 package com.example.natalia.diary_lmu;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.TabActivity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.TabHost;
 
-public class MainActivity extends TabActivity {
+public class HomeActivity extends TabActivity {
 
     private TabHost mTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         System.out.println("test");
 
         mTabHost = getTabHost();
