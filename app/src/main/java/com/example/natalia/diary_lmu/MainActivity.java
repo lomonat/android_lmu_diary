@@ -19,14 +19,13 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("test");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        System.out.println("database" +  database);
-        DatabaseReference myRef = database.getReference("test");
-        System.out.println("databaseref");
+        DatabaseReference myRef = database.getReference("test/1");
+        // System.out.println("databaseref");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 // data available in snapshot.value()
-                System.out.println("snapshot " + snapshot.child("test1").getValue());
+                System.out.println("snapshot " + snapshot.child("newtetst").getValue());
             }
 
             @Override
