@@ -13,4 +13,12 @@
         android:text="TextView"
         tools:layout_editor_absoluteX="163dp"
         tools:layout_editor_absoluteY="222dp" />
+
+    <ImageView
+        android:id="@+id/firebaseTestImageView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/food_simple" />
+
 </android.support.constraint.ConstraintLayout>

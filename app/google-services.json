@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "34811633672",
+    "firebase_url": "https://diary-lmu.firebaseio.com",
+    "project_id": "diary-lmu",
+    "storage_bucket": "diary-lmu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34811633672:android:818e0a123e04e64f",
+        "android_client_info": {
+          "package_name": "com.example.natalia.diary_lmu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34811633672-2nr324jbs9j91s2jd4tjmeu8caqqgitl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcLPYZRRUsDmJxRPELdie_H9okAHLMb8A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
