@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.natalia.diary_lmu">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".tab1Activity" />
         <activity android:name=".tab2Activity" />
-        <activity android:name=".tab3Activity"></activity>
+        <activity android:name=".tab3Activity" />
+        <activity android:name=".DiaryContentActivity"></activity>
     </application>
 
 </manifest>

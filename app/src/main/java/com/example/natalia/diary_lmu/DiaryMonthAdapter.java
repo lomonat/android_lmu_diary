@@ -44,9 +44,9 @@ public class DiaryMonthAdapter extends BaseAdapter{
 
             final ImageView imageViewCoverArt = convertView.findViewById(R.id.imageview_cover_art);
             final TextView summaryTextView = convertView.findViewById(R.id.textview_diary_summary);
-            final ImageView imageViewFavorite = convertView.findViewById(R.id.imageview_favorite);
+            final ImageView imageViewDayIcon = convertView.findViewById(R.id.imageview_dayIcon);
 
-            final ViewHolder viewHolder = new ViewHolder(summaryTextView, imageViewCoverArt, imageViewFavorite);
+            final ViewHolder viewHolder = new ViewHolder(summaryTextView, imageViewCoverArt, imageViewDayIcon);
             convertView.setTag(viewHolder);
         }
 
@@ -58,7 +58,7 @@ public class DiaryMonthAdapter extends BaseAdapter{
         Uri dayIconUri=Uri.parse("android.resource://com.example.natalia.diary_lmu/drawable/" + dayIconName);
         viewHolder.imageViewDayIcon.setImageURI(dayIconUri);
 
-        Picasso.get().load(diary.getImageUrl()).error(R.drawable.horton).into(viewHolder.imageViewCoverArt);
+        Picasso.get().load(diary.getImageUrl()).error(R.drawable.ic_launcher_background).into(viewHolder.imageViewCoverArt);
 
         return convertView;
     }

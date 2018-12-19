@@ -14,9 +14,36 @@
     <!--<string name="the_tooth_book">The Tooth Book</string>-->
     <!--<string name="one_fish_two_fish_red_fish_blue_fish">One Fish, Two Fish, Red Fish, Blue Fish</string>-->
 
-    <string name="dr_seuss">Dr. Seuss</string>
-    <string name="karen_katz">Karen Katz</string>
-    <string name="nancy_tillman">Nancy Tillman</string>
-    <string name="eric_carle">Eric Carle</string>
-    <string name="sandra_boynton">Sandra Boynton</string>
+    <string name="summary_day_1">Very tired</string>
+    <string name="summary_day_2">Cheerful</string>
+    <string name="summary_day_3">Pleasure</string>
+    <string name="summary_day_4">Delight</string>
+    <string name="summary_day_5">Drowsy</string>
+    <string name="summary_day_6">Excellent</string>
+    <string name="summary_day_7">Boring</string>
+    <string name="summary_day_8">Busy</string>
+    <string name="summary_day_9">Drowsy</string>
+    <string name="summary_day_10">Pleasure</string>
+    <string name="summary_day_11">Drowsy</string>
+    <string name="summary_day_12">Excellent</string>
+    <string name="summary_day_13"></string>
+    <string name="summary_day_14">Cheerful</string>
+    <string name="summary_day_15">Cheerful</string>
+    <string name="summary_day_16">Delight</string>
+    <string name="summary_day_17">Drowsy</string>
+    <string name="summary_day_18">Busy</string>
+    <string name="summary_day_19">Very tired</string>
+    <string name="summary_day_20">Cheerful</string>
+    <string name="summary_day_21">Pleasure</string>
+    <string name="summary_day_22">Excellent</string>
+    <string name="summary_day_23">Drowsy</string>
+    <string name="summary_day_24">Boring</string>
+    <string name="summary_day_25">Pleasure</string>
+    <string name="summary_day_26">Boring</string>
+    <string name="summary_day_27">Cheerful</string>
+    <string name="summary_day_28">Pleasure</string>
+    <string name="summary_day_29">Drowsy</string>
+    <string name="summary_day_30">Excellent</string>
+    <string name="summary_day_31">Very tired</string>
+
 </resources>

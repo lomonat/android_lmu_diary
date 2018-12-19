@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    >
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                >
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="120dp">
 
         <ImageView
             android:id="@+id/imageview_cover_art"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"/>
+            android:background="#fff"
+            android:elevation="3dp"
+            android:translationX="1dp"
+            android:scaleType="fitXY"/>
 
         <ImageView
-            android:id="@+id/imageview_favorite"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/star_disabled"
+            android:id="@+id/imageview_dayIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:elevation="3dp"
+            android:translationX="1dp"
+            android:translationZ="1dp"
+            android:src="@drawable/icons8_calendar_1_80"
             android:layout_gravity="bottom|right"/>
 
         </FrameLayout>
