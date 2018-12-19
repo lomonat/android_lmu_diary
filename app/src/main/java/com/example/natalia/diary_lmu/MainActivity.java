@@ -1,6 +1,7 @@
 package com.example.natalia.diary_lmu;
 
 import android.content.Intent;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
