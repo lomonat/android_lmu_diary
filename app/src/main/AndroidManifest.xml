@@ -18,13 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signUp"></activity>
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".signUp" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".tab1Activity" />
         <activity android:name=".tab2Activity" />
         <activity android:name=".tab3Activity" />
-        <activity android:name=".DiaryContentActivity"></activity>
-
+        <activity android:name=".DiaryContentActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>
