@@ -12,11 +12,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -30,15 +36,22 @@ public class ProfileActivity extends AppCompatActivity {
     EditText userName;
     ImageView userPic;
     Uri imageUri;
+    ProgressBar progressBar;
+    String profileImageUrl;
     private static final int CHOOSE_IMAGE = 101;
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        mAuth = FirebaseAuth.getInstance();
+
         userName = findViewById(R.id.editTextP);
         userPic = findViewById(R.id.imageViewP);
+        progressBar = findViewById(R.id.progressBarP);
 
         userPic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,9 +63,34 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.buttonSaveP).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                saveUserInformation();
             }
         });
+    }
+
+    private void saveUserInformation(){
+        String name = userName.getText().toString();
+
+        if(name.isEmpty()){
+            userName.setError("Name required");
+            userName.requestFocus();
+            return;
+        }
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if(user != null && profileImageUrl != null){
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(name).setPhotoUri(Uri.parse(profileImageUrl)).build();
+            user.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(ProfileActivity.this, "Your profile is updated", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
     }
 
     @Override
@@ -84,14 +122,19 @@ public class ProfileActivity extends AppCompatActivity {
         StorageReference profileImageRef = FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis()+".jpg");
 
         if(imageUri != null){
-            profileImageRef.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            progressBar.setVisibility(View.VISIBLE);
+            profileImageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    if(task.isSuccessful()){
-                        Toast.makeText(getApplicationContext(),"Image Uplaoded", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressBar.setVisibility(View.GONE);
+                    profileImageUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(ProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

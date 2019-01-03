@@ -1,5 +1,6 @@
 package com.example.natalia.diary_lmu;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import android.support.annotation.NonNull;
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                     finish();
                 }else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
