@@ -87,7 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
-            if (user.getPhotoUrl() != nnull) {
+            if (user.getPhotoUrl() != null) {
                 Glide.with(this).load(user.getPhotoUrl().toString()).into(userPic);
             }
             if (user.getDisplayName() != null) {
