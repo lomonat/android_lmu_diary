@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        if(mAuth.getCurrentUser() != null){
+            finish();
+            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+        }
 
     }
 
@@ -80,8 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                     finish();
+                    startActivity(new Intent(MainActivity.this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
                 }else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -90,10 +95,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.rButton:
+                finish();
                 startActivity(new Intent(this, signUp.class));
                 break;
             case R.id.sButton:

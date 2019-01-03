@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,6 +31,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.URI;
+import java.security.KeyStore;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -66,6 +68,32 @@ public class ProfileActivity extends AppCompatActivity {
                 saveUserInformation();
             }
         });
+
+        loadUserInformation();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        if(mAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+        }
+
+    }
+
+    private void loadUserInformation() {
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        if (user != null) {
+            if (user.getPhotoUrl() != nnull) {
+                Glide.with(this).load(user.getPhotoUrl().toString()).into(userPic);
+            }
+            if (user.getDisplayName() != null) {
+                userName.setText(user.getDisplayName());
+            }
+        }
     }
 
     private void saveUserInformation(){

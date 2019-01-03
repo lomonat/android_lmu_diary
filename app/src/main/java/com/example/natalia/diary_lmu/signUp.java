@@ -70,9 +70,9 @@ public class signUp extends AppCompatActivity implements View .OnClickListener{
                 progressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()){
 
-                    Toast.makeText(getApplicationContext(), "User registered successful", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(signUp.this, HomeActivity.class));
                     finish();
+                    Toast.makeText(getApplicationContext(), "User registered successful", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(signUp.this, ProfileActivity.class));
 
                 } else {
 
