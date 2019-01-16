@@ -45,5 +45,6 @@
     <string name="summary_day_29">Drowsy</string>
     <string name="summary_day_30">Excellent</string>
     <string name="summary_day_31">Very tired</string>
+    <string name="profileInfo">Here you can set your Profileinformation</string>
 
 </resources>
