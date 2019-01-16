@@ -37,15 +37,6 @@
         android:layout_marginBottom="81dp"
         android:text="Save Changes" />
 
-    <ImageView
-        android:id="@+id/imageViewP"
-        android:layout_width="163dp"
-        android:layout_height="169dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
-        tools:src="@tools:sample/avatars" />
-
     <ProgressBar
         android:id="@+id/progressBarP"
         android:visibility="gone"
@@ -55,4 +46,14 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="129dp" />
+
+    <ImageView
+        android:id="@+id/imageViewP"
+        android:layout_width="111dp"
+        android:layout_height="96dp"
+        android:layout_alignStart="@+id/buttonSaveP"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="120dp"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 </RelativeLayout>

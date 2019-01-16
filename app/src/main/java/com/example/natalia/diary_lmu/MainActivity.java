@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Check if user is signed in (non-null) and update UI accordingly.
         if(mAuth.getCurrentUser() != null){
             finish();
-            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+            startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }
 
     }

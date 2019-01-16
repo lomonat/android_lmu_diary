@@ -27,6 +27,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
 
 import java.io.IOException;
 import java.net.Inet4Address;
@@ -40,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     Uri imageUri;
     ProgressBar progressBar;
     String profileImageUrl;
+    TextView textView;
     private static final int CHOOSE_IMAGE = 101;
 
     FirebaseAuth mAuth;
@@ -54,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
         userName = findViewById(R.id.editTextP);
         userPic = findViewById(R.id.imageViewP);
         progressBar = findViewById(R.id.progressBarP);
+        textView = findViewById(R.id.textViewP);
 
         userPic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         loadUserInformation();
+
     }
 
     @Override
@@ -87,9 +92,26 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
-            if (user.getPhotoUrl() != null) {
-                Glide.with(this).load(user.getPhotoUrl().toString()).into(userPic);
-            }
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+            storageRef.child(user.getUid()+ "/profilepics/"+user.getUid()+"profileimage.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(userPic);
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "load image successed",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "load image failed" + e,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
+
             if (user.getDisplayName() != null) {
                 userName.setText(user.getDisplayName());
             }
@@ -147,7 +169,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void  uploadImageToFirebaseStorage(){
-        StorageReference profileImageRef = FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis()+".jpg");
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        StorageReference profileImageRef = FirebaseStorage.getInstance().getReference(user.getUid()+ "/profilepics/"+user.getUid()+"profileimage.jpg");
 
         if(imageUri != null){
             progressBar.setVisibility(View.VISIBLE);
