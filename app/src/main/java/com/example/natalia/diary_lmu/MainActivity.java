@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void postData(JSONObject data) {
+    /*public void postData(JSONObject data) {
         String url ="https://api.telegram.org/bot594094944:AAHr-ucsrdRrS5wQraiHmGgog2vyCZ_9XXk/getUpdates";
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, parameters, new Response.Listener<JSONObject>() {
             @Override
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //TODO: handle failure
             }
         });
-    }
+    } */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
