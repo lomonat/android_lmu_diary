@@ -47,4 +47,7 @@
     <string name="summary_day_31">Very tired</string>
     <string name="profileInfo">Here you can set your Profileinformation</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
