@@ -59,10 +59,15 @@ public class Tab1Fragment extends Fragment {
 
     private void addView2() {
         view2 = new TextView(mContext);
-        view2.setLayoutParams(new RelativeLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        view1.setId(R.id.textview);
+        params.addRule(RelativeLayout.BELOW, R.id.textview);
+        view2.setLayoutParams(params);
+
         String text = "Today was a little better. I texted Sarah last night asking if she wanted to have lunch with me today, just the two of us, and she said sure. I told her that just because I’m hanging out with Jane, it doesn’t change anything about our friendship. After all, we’ve been friends since first grade! ";
-        view2.setText(text);
+        view2.setText(text+text+text+text+text);
         view2.setTextColor(0xFF000000);
         layout.addView(view2);
 
