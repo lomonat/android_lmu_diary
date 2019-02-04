@@ -43,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
     ProgressBar progressBar;
     String profileImageUrl;
     TextView textView;
+    TextView textVeri;
     private static final int CHOOSE_IMAGE = 101;
 
     FirebaseAuth mAuth;
@@ -58,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         userPic = findViewById(R.id.imageViewP);
         progressBar = findViewById(R.id.progressBarP);
         textView = findViewById(R.id.textViewP);
+        textVeri = findViewById(R.id.textViewVeri);
 
         userPic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +72,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUserInformation();
+            }
+        });
+
+        findViewById(R.id.imageButtonLog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Toast.makeText(ProfileActivity.this, "You Logged Out Successful", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
 
@@ -115,6 +126,23 @@ public class ProfileActivity extends AppCompatActivity {
             if (user.getDisplayName() != null) {
                 userName.setText(user.getDisplayName());
             }
+
+            if(user.isEmailVerified()){
+                textVeri.setText("Your email is verified.");
+            }else{
+                textVeri.setText("Your email is not verified (Click to Verify).");
+                textVeri.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(ProfileActivity.this, "Verification Email Sent", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 
@@ -136,8 +164,10 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(ProfileActivity.this, "Your profile is updated", Toast.LENGTH_SHORT).show();
-                        finish();
-                        startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                       if(user.isEmailVerified()) {
+                           finish();
+                           startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                       }
                     }
                 }
             });
