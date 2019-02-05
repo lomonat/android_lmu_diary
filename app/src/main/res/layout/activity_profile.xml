@@ -17,26 +17,6 @@
         tools:layout_editor_absoluteX="162dp"
         tools:layout_editor_absoluteY="16dp" />
 
-    <EditText
-        android:id="@+id/editTextP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="284dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
-
-    <Button
-        android:id="@+id/buttonSaveP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:text="Save Changes" />
-
     <ProgressBar
         android:id="@+id/progressBarP"
         android:visibility="gone"
@@ -47,14 +27,47 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="129dp" />
 
+    <EditText
+        android:id="@+id/editTextP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="284dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Name" />
+
+    <EditText
+        android:id="@+id/editTextTelegram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editTextP"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="334dp"
+        android:ems="10"
+        android:hint="TelegramID"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/buttonSaveP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="Save Changes" />
+
+
     <ImageView
         android:id="@+id/imageViewP"
-        android:layout_width="111dp"
-        android:layout_height="96dp"
+        android:layout_width="212dp"
+        android:layout_height="190dp"
         android:layout_alignStart="@+id/buttonSaveP"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="-42dp"
+        android:layout_marginTop="90dp"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <TextView
@@ -63,9 +76,10 @@
         android:layout_height="37dp"
         android:layout_alignStart="@+id/editTextP"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="121dp"
-        android:textStyle="bold"
-        android:text="Verification"/>
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="81dp"
+        android:text="Verification"
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/imageButtonLog"
