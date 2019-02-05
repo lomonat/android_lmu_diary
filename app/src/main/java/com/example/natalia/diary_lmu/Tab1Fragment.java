@@ -1,17 +1,36 @@
 package com.example.natalia.diary_lmu;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.content.Intent;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.util.TypedValue;
 import android.widget.RelativeLayout;
 import android.content.Context;
 import android.widget.ImageView;
+import android.widget.Toast;
+import android.content.ContentResolver;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.IOException;
 
 public class Tab1Fragment extends Fragment {
 
@@ -20,6 +39,12 @@ public class Tab1Fragment extends Fragment {
     private TextView view2 = null;
     private RelativeLayout layout = null;
 
+    Uri imageUri;
+    ProgressBar progressBar;
+    String view1Url;
+    private static final int CHOOSE_IMAGE = 101;
+
+    FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +77,12 @@ public class Tab1Fragment extends Fragment {
         view1.setLayoutParams(new RelativeLayout.LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         view1.setImageResource(R.drawable.food_simple);
+        view1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImageChooser();
+            }
+        });
         layout.addView(view1);
 
     }
@@ -71,6 +102,56 @@ public class Tab1Fragment extends Fragment {
         view2.setTextColor(0xFF000000);
         layout.addView(view2);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+//        if(requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null){
+//            imageUri =  data.getData();
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+//                view1.setImageBitmap(bitmap);
+//
+//                uploadImageToFirebaseStorage();
+//
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+//        }
+    }
+
+    private void showImageChooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Diary Image"), CHOOSE_IMAGE);
+    }
+
+    private void  uploadImageToFirebaseStorage(){
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        StorageReference view1Ref = FirebaseStorage.getInstance().getReference(user.getUid()+ "/diaryimages/"+user.getUid()+"diaryimage.jpg");
+
+        if(imageUri != null){
+            progressBar.setVisibility(View.VISIBLE);
+            view1Ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressBar.setVisibility(View.GONE);
+                    view1Url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                }
+            })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
     }
 
 }
