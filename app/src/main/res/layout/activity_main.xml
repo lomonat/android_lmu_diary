@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
-        android:text="sign in or register"
+        android:text="Wellcome back to ChatBotDiary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -59,18 +59,6 @@
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="217dp" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="209dp"
-        android:layout_height="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="-129dp"
-        android:layout_marginTop="329dp"
-        android:layout_toEndOf="@+id/rButton"
-        android:text="remember me"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="285dp" />
-
     <Button
         android:id="@+id/rButton"
         android:layout_width="wrap_content"
@@ -91,5 +79,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="214dp"
+        android:layout_height="33dp"
+        android:layout_alignStart="@+id/mailText"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="125dp"
+        android:text="Not jet registered? Do it here!" />
 
 </RelativeLayout>

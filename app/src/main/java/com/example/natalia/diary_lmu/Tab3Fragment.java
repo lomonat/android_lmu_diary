@@ -1,56 +1,47 @@
 package com.example.natalia.diary_lmu;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.content.Intent;
-import android.widget.Toast;
 
-import android.net.Uri;
+public class Tab3Fragment extends Fragment {
 
-public class tab3Activity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab3);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        GridView gridView = findViewById(R.id.gridview);
-        final DiaryMonthAdapter diaryMonthAdapter = new DiaryMonthAdapter(this, diaries);
+        GridView gridView = new GridView(getActivity());
+        final DiaryMonthAdapter diaryMonthAdapter = new DiaryMonthAdapter(getActivity(), diaries);
         gridView.setAdapter(diaryMonthAdapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Diary diary = diaries[position];
-                Intent intent =new Intent(tab3Activity.this,DiaryContentActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(),DiaryContentActivity.class);
 
-                Bundle bundle=new Bundle();
+                Bundle bundle = new Bundle();
                 bundle.putString("name", "test");
                 intent.putExtras(bundle);
 
                 startActivity(intent);
 //                Toast toast = Toast.makeText(getApplicationContext(),
 //                        "This is a message displayed in a Toast",
-//                        Toast.LENGTH_SHORT);
+//                        To ast.LENGTH_SHORT);
 //                toast.show();
             }
         });
 
-    }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
 
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+        return gridView;
+//        return inflater.inflate(R.layout.fragment_tab3, container, false);
 
     }
 

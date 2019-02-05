@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
 
         Intent intent = new Intent(this.getBaseContext(), SendDataService.class);
+        startService(intent);
+
 
       /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(intent);

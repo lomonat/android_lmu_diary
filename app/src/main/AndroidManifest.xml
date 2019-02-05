@@ -22,10 +22,9 @@
         </activity>
         <activity android:name=".signUp" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".tab1Activity" />
-        <activity android:name=".tab2Activity" />
-        <activity android:name=".tab3Activity" />
-        <activity android:name=".DiaryContentActivity"></activity>
+
+
+        <activity android:name=".DiaryContentActivity" />
         <activity android:name=".ProfileActivity"></activity>
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <service android:name=".SendDataService" />
