@@ -24,6 +24,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,18 +39,24 @@ import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.URI;
 import java.security.KeyStore;
+import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity {
 
     EditText userName;
+    EditText telegramId;
     ImageView userPic;
     Uri imageUri;
     ProgressBar progressBar;
     String profileImageUrl;
     TextView textView;
+    TextView textVeri;
+    FirebaseUser user;
     private static final int CHOOSE_IMAGE = 101;
 
     FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +64,16 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+
 
         userName = findViewById(R.id.editTextP);
+        telegramId = findViewById(R.id.editTextTelegram);
         userPic = findViewById(R.id.imageViewP);
         progressBar = findViewById(R.id.progressBarP);
         textView = findViewById(R.id.textViewP);
+        textVeri = findViewById(R.id.textViewVeri);
+        user  = mAuth.getCurrentUser();
 
         userPic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +86,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUserInformation();
+            }
+        });
+
+        findViewById(R.id.imageButtonLog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Toast.makeText(ProfileActivity.this, "You Logged Out Successful", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
         });
 
@@ -86,10 +111,18 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(new Intent(ProfileActivity.this, MainActivity.class));
         }
 
+       if(!user.isEmailVerified()) {
+           user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+               @Override
+               public void onComplete(@NonNull Task<Void> task) {
+                   Toast.makeText(ProfileActivity.this, "Verification Email Sent", Toast.LENGTH_SHORT).show();
+               }
+           });
+       }
+
     }
 
     private void loadUserInformation() {
-        FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
             StorageReference storageRef = FirebaseStorage.getInstance().getReference();
@@ -101,6 +134,8 @@ public class ProfileActivity extends AppCompatActivity {
                             "load image successed",
                             Toast.LENGTH_SHORT);
                     toast.show();
+                    profileImageUrl = storageRef.child(user.getUid()+ "/profilepics/"+user.getUid()+"profileimage.jpg").getDownloadUrl().toString();
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -115,11 +150,49 @@ public class ProfileActivity extends AppCompatActivity {
             if (user.getDisplayName() != null) {
                 userName.setText(user.getDisplayName());
             }
+
+            if(user.isEmailVerified()){
+                textVeri.setText("Your email is verified.");
+            }else{
+                textVeri.setText("Your email is not verified (Click to Verify).");
+                textVeri.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(ProfileActivity.this, "Verification Email Sent", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+            }
+            
+            loadTelegramId();
         }
+    }
+
+    private void loadTelegramId() {
+        DatabaseReference ref = database.getReference("TelegramIds/user/" + user.getUid() + "/TelegramId");
+
+        // Attach a listener to read the data at our posts reference
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                telegramId.setText(dataSnapshot.getValue().toString());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(ProfileActivity.this, "The read failed: " + databaseError.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void saveUserInformation(){
         String name = userName.getText().toString();
+        String id = telegramId.getText().toString();
 
         if(name.isEmpty()){
             userName.setError("Name required");
@@ -127,7 +200,14 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        if(id.isEmpty()){
+            telegramId.setError("The Telegram ID required");
+            telegramId.requestFocus();
+            return;
+        }
+
+        uploadId(id);
+
 
         if(user != null && profileImageUrl != null){
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(name).setPhotoUri(Uri.parse(profileImageUrl)).build();
@@ -136,12 +216,25 @@ public class ProfileActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(ProfileActivity.this, "Your profile is updated", Toast.LENGTH_SHORT).show();
-                        finish();
-                        startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                       if(user.isEmailVerified()) {
+                           finish();
+                           startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                       }
                     }
                 }
             });
         }
+
+    }
+
+    private void uploadId(String id) {
+        ref = database.getReference("TelegramIds/user");
+
+        //ToDo: cheking if the telegram ID is correkt
+
+        DatabaseReference telegramRef = ref.child(""+user.getUid());
+
+        telegramRef.child("TelegramId").setValue(id);
 
     }
 
