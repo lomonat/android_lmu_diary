@@ -31,7 +31,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 
 import android.util.Patterns;
 import android.view.View;
@@ -114,15 +118,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
+    public static String getRandom(String[] array) {
+        int rnd = new Random().nextInt(array.length);
+        return array[rnd];
+    }
+    public static Boolean compareTime() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
+        System.out.println("Time" + dateFormat.format(date));
+        return true;
+        //int rnd = new Random().nextInt(array.length);
+        // return array[rnd];
+    }
     public void postData() {
+        compareTime();
         RequestQueue queue = Volley.newRequestQueue(this);
 
         final String URL = "https://api.telegram.org/bot705197204:AAH3vR6vK938ftZPkzo4Q3mnRKtxylhzpEw/sendMessage";
+        String[] greeting = {"Hi! How are you today?","Whats up?","Hello! How are you?", "Hi! Do you have some news?"};
+
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("chat_id", "325105554");
-        params.put("text", "Hello "+mAuth.getCurrentUser().getDisplayName());
+        params.put("text", getRandom(greeting));
 
         JsonObjectRequest request_json = new JsonObjectRequest(URL, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
