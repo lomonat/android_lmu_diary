@@ -218,7 +218,11 @@ public class ProfileActivity extends AppCompatActivity {
                         Toast.makeText(ProfileActivity.this, "Your profile is updated", Toast.LENGTH_SHORT).show();
                        if(user.isEmailVerified()) {
                            finish();
-                           startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                           Bundle bundle = new Bundle();
+                           bundle.putString("userName", user.getDisplayName());
+                           Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+                           intent.putExtras(bundle);
+                           startActivity(intent);
                        }
                     }
                 }

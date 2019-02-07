@@ -26,26 +26,26 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/pwText"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="353dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="418dp"
         android:ems="10"
         android:hint="e-Mail"
         android:inputType="textEmailAddress"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="67dp" />
 
-        <EditText
-            android:id="@+id/pwText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="197dp"
-            android:ems="10"
-            android:hint="password"
-            android:inputType="textPassword"
-            tools:layout_editor_absoluteX="84dp"
-            tools:layout_editor_absoluteY="137dp" />
+    <EditText
+        android:id="@+id/pwText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/sButton"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="276dp"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="84dp"
+        tools:layout_editor_absoluteY="137dp" />
 
 
     <Button
@@ -54,7 +54,7 @@
         android:layout_height="47dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="339dp"
         android:text="Submit"
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="217dp" />

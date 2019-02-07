@@ -8,13 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Tab3Fragment extends Fragment {
 
 
+    FirebaseUser user;
+
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference ref;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        initialDiaryData();
 
         GridView gridView = new GridView(getActivity());
         final DiaryMonthAdapter diaryMonthAdapter = new DiaryMonthAdapter(getActivity(), diaries);
@@ -33,7 +47,7 @@ public class Tab3Fragment extends Fragment {
                 startActivity(intent);
 //                Toast toast = Toast.makeText(getApplicationContext(),
 //                        "This is a message displayed in a Toast",
-//                        To ast.LENGTH_SHORT);
+//                        Toast.LENGTH_SHORT);
 //                toast.show();
             }
         });
@@ -109,4 +123,15 @@ public class Tab3Fragment extends Fragment {
             new Diary(R.string.summary_day_31, R.drawable.ic_launcher_foreground,
                     "https://images.pexels.com/photos/164697/pexels-photo-164697.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")
     };
+
+    void initialDiaryData(){
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        user  = mAuth.getCurrentUser();
+
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                user.getUid(),
+                        Toast.LENGTH_LONG);
+                toast.show();
+    }
 }

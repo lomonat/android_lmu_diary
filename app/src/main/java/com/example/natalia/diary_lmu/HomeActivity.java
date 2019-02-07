@@ -11,10 +11,21 @@ import android.widget.TabHost;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class HomeActivity extends AppCompatActivity {
 
-//    private TabHost mTabHost;
+    FirebaseUser user;
+
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +37,8 @@ public class HomeActivity extends AppCompatActivity {
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(getUserName());
+
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Day"));
@@ -85,6 +98,20 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    String getUserName(){
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        user  = mAuth.getCurrentUser();
+        String displayName = user.getEmail();
+//        for (UserInfo userInfo : user.getProviderData()) {
+//            if (displayName == null && userInfo.getDisplayName() != null) {
+//                displayName = userInfo.getDisplayName();
+//            }
+//        }
+
+        return displayName;
     }
 
 }
