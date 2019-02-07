@@ -182,7 +182,10 @@ public class ProfileActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                telegramId.setText(dataSnapshot.getValue().toString());
+
+                if(dataSnapshot.getValue() != null) {
+                    telegramId.setText(dataSnapshot.getValue().toString());
+                }
 
             }
 
@@ -194,28 +197,34 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void saveUserInformation(){
-        String name = userName.getText().toString();
-        String id = telegramId.getText().toString();
+        String name;
+        String id;
+        if(userName.getText() != null && telegramId.getText()!= null ) {
+            name = userName.getText().toString();
+            id = telegramId.getText().toString();
 
-        if(name.isEmpty()){
-            userName.setError("Name required");
-            userName.requestFocus();
-            return;
+            if (name.isEmpty()) {
+                userName.setError("Name required");
+                userName.requestFocus();
+                return;
+            }
+
+            if (id.isEmpty()) {
+                telegramId.setError("The Telegram ID required");
+                telegramId.requestFocus();
+                return;
+            }
+
+            if (uploadId(id)) {
+                telegramId.setError("The Telegram ID is not correct");
+                telegramId.requestFocus();
+                return;
+            }
+
+        }else{
+            name = "Name";
+            id = "TelegramID";
         }
-
-        if(id.isEmpty()){
-            telegramId.setError("The Telegram ID required");
-            telegramId.requestFocus();
-            return;
-        }
-
-        if(uploadId(id)){
-            telegramId.setError("The Telegram ID is not correct");
-            telegramId.requestFocus();
-            return;
-        }
-
-
         if(user != null && profileImageUrl != null){
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(name).setPhotoUri(Uri.parse(profileImageUrl)).build();
             user.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -257,7 +266,7 @@ public class ProfileActivity extends AppCompatActivity {
             return false;
         }
 
-        DatabaseReference ref = database.getReference("Data/users/" + mxID + "/Name");
+        DatabaseReference ref = database.getReference("Names/users/" + mxID + "/Name");
 
         // Attach a listener to read the data at our posts reference
         ref.addValueEventListener(new ValueEventListener() {
