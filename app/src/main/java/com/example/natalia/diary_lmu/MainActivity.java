@@ -1,16 +1,19 @@
 package com.example.natalia.diary_lmu;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
+import android.widget.Toast;
+
+
+import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
 
     FirebaseAuth mAuth;
     EditText mailSign, passwordSign;
@@ -43,13 +47,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onStart() {
         super.onStart();
+
+        Intent intent = new Intent(this.getBaseContext(), SendDataService.class);
+        startService(intent);
+
+
+      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }   */
         // Check if user is signed in (non-null) and update UI accordingly.
         if(mAuth.getCurrentUser() != null){
             finish();
+         //   postData();
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }
 
     }
+
 
     private void userLogin(){
         String email = mailSign.getText().toString().trim();
@@ -85,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     finish();
+
                     startActivity(new Intent(MainActivity.this, ProfileActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
                 }else {

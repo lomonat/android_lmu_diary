@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1074194858286-oluekjouh7arnv4o1q61800o82768152.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.natalia.diary_lmu",
+            "certificate_hash": "a09a1dc23b709c42d0bca89633b0024603423aa5"
+          }
+        },
+        {
           "client_id": "1074194858286-2hvssv79j829mm5qh8s8llp8ssr97b10.apps.googleusercontent.com",
           "client_type": 3
         }
