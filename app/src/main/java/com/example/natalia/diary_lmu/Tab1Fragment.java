@@ -26,6 +26,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -45,9 +47,13 @@ public class Tab1Fragment extends Fragment {
     private static final int CHOOSE_IMAGE = 101;
 
     FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference ref;
+    FirebaseUser user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        initialFirebase();
 
         layout = new RelativeLayout(getActivity());
         mContext = getActivity();
@@ -70,6 +76,13 @@ public class Tab1Fragment extends Fragment {
 
         return scroller;
 //        return inflater.inflate(R.layout.fragment_tab1, container, false);
+    }
+
+    void initialFirebase(){
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        progressBar = getActivity().findViewById(R.id.progressBarP);
+        user  = mAuth.getCurrentUser();
     }
 
     private void addView1() {
@@ -108,18 +121,19 @@ public class Tab1Fragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if(requestCode == CHOOSE_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null){
-//            imageUri =  data.getData();
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-//                view1.setImageBitmap(bitmap);
-//
-//                uploadImageToFirebaseStorage();
-//
-//            }catch (IOException e){
-//                e.printStackTrace();
-//            }
-//        }
+        if(requestCode == CHOOSE_IMAGE && resultCode == HomeActivity.RESULT_OK && data != null && data.getData() != null){
+            imageUri =  data.getData();
+            try {
+                Context applicationContext = HomeActivity.getContextOfApplication();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(applicationContext.getContentResolver(), imageUri);
+                view1.setImageBitmap(bitmap);
+
+                uploadImageToFirebaseStorage();
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     private void showImageChooser(){
@@ -133,21 +147,21 @@ public class Tab1Fragment extends Fragment {
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        StorageReference view1Ref = FirebaseStorage.getInstance().getReference(user.getUid()+ "/diaryimages/"+user.getUid()+"diaryimage.jpg");
+        StorageReference view1Ref = FirebaseStorage.getInstance().getReference(user.getUid()+ "/diarypics/"+user.getUid()+"diaryimage.jpg");
 
         if(imageUri != null){
-            progressBar.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility(View.VISIBLE);
             view1Ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    progressBar.setVisibility(View.GONE);
+//                    progressBar.setVisibility(View.GONE);
                     view1Url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                 }
             })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressBar.setVisibility(View.GONE);
+//                            progressBar.setVisibility(View.GONE);
                             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });

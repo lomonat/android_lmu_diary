@@ -6,11 +6,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.widget.TabHost;
 
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Context;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +26,13 @@ public class HomeActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference ref;
+
+    // a static variable to get a reference of our application context
+    public static Context contextOfApplication;
+    public static Context getContextOfApplication()
+    {
+        return contextOfApplication;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +74,8 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-//        mTabHost = getTabHost();
-//        mTabHost.setup();
-//
-//        TabHost.TabSpec tabSpec1 = mTabHost.newTabSpec("tab1").setIndicator("day").setContent(new Intent(this,tab1Activity.class));
-//        TabHost.TabSpec tabSpec2 = mTabHost.newTabSpec("tab2").setIndicator("week").setContent(new Intent(this,tab2Activity.class));
-//        TabHost.TabSpec tabSpec3 = mTabHost.newTabSpec("tab3").setIndicator("month").setContent(new Intent(this,tab3Activity.class));
-//
-//        mTabHost.addTab(tabSpec1);
-//        mTabHost.addTab(tabSpec2);
-//        mTabHost.addTab(tabSpec3);
+
+        contextOfApplication = getApplicationContext();
 
     }
 
