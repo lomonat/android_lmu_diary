@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.ContentResolver;
+import android.graphics.Color;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,12 +33,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
 public class Tab1Fragment extends Fragment {
 
     private Context mContext = null;
+    private TextView dateTextView = null;
     private ImageView view1 = null;
     private TextView view2 = null;
     private RelativeLayout layout = null;
@@ -70,6 +74,7 @@ public class Tab1Fragment extends Fragment {
 //        text2.setText("22222");
 //
 //        scroller.addView(text2);
+        addDateTextView();
         addView1();
         addView2();
         scroller.addView(layout);
@@ -85,11 +90,64 @@ public class Tab1Fragment extends Fragment {
         user  = mAuth.getCurrentUser();
     }
 
+    private void addDateTextView(){
+//        android:layout_width="match_parent"
+//        android:layout_height="48dp"
+//        android:layout_gravity="center"
+//        android:background="#0F4C3A"
+//        android:gravity="center_vertical|center_horizontal"
+//        android:text="14.12.2018  Friday  Sunny"
+//        android:textColor="#fff" />
+
+        dateTextView =  new TextView(mContext);
+//        dateTextView.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+//        dateTextView.setHeight(48);
+
+        dateTextView.setBackgroundColor(Color.parseColor("#0F4C3A"));
+        dateTextView.setTextColor(Color.WHITE);
+        dateTextView.setText("test_date");
+
+        dateTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+        LayoutParams params = new RelativeLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = 120;
+        dateTextView.setLayoutParams(params);
+        layout.addView(dateTextView);
+    }
+
     private void addView1() {
         view1 = new ImageView(mContext);
-        view1.setLayoutParams(new RelativeLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        view1.setImageResource(R.drawable.food_simple);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        dateTextView.setId(R.id.datetextview);
+        params.addRule(RelativeLayout.BELOW, R.id.datetextview);
+        view1.setLayoutParams(params);
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        storageRef.child(user.getUid()+ "/diarypics/"+user.getUid()+"diaryimage.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(view1);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                        "load image successed",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+                view1Url = storageRef.child(user.getUid()+ "/diarypics/"+user.getUid()+"diaryimage.jpg").getDownloadUrl().toString();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                        "load image failed" + e,
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
         view1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +157,7 @@ public class Tab1Fragment extends Fragment {
         layout.addView(view1);
 
     }
+
 
 
     private void addView2() {

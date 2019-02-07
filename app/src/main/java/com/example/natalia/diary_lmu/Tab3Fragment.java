@@ -40,7 +40,7 @@ public class Tab3Fragment extends Fragment {
                 Intent intent = new Intent(getActivity().getApplicationContext(),DiaryContentActivity.class);
 
                 Bundle bundle = new Bundle();
-                bundle.putString("name", "test");
+                bundle.putString("diary_date", "test_date");
                 intent.putExtras(bundle);
 
                 startActivity(intent);

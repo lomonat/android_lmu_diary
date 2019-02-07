@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,7 +24,10 @@ public class DiaryContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diary_content);
 
         Bundle bundle = this.getIntent().getExtras();
-        String name = bundle.getString("name");
+        String diary_date = bundle.getString("diary_date");
+
+        TextView dateTextView = findViewById(R.id.day_time_tv);
+        dateTextView.setText(diary_date);
 
         final ImageView testImageView = findViewById(R.id.firebaseTestImageView);
 
