@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getUserName());
+        getSupportActionBar().setTitle(getUserName()+"'s Diary");
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -104,12 +104,12 @@ public class HomeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         user  = mAuth.getCurrentUser();
-        String displayName = user.getEmail();
-//        for (UserInfo userInfo : user.getProviderData()) {
-//            if (displayName == null && userInfo.getDisplayName() != null) {
-//                displayName = userInfo.getDisplayName();
-//            }
-//        }
+        String displayName = user.getDisplayName();
+        for (UserInfo userInfo : user.getProviderData()) {
+            if (displayName == null && userInfo.getDisplayName() != null) {
+                displayName = userInfo.getDisplayName();
+            }
+        }
 
         return displayName;
     }

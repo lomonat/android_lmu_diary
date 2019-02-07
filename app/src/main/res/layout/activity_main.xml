@@ -28,11 +28,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="2dp"
         android:layout_marginBottom="418dp"
+
         android:ems="10"
         android:hint="e-Mail"
-        android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="67dp" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/pwText"
@@ -48,6 +47,7 @@
         tools:layout_editor_absoluteY="137dp" />
 
 
+
     <Button
         android:id="@+id/sButton"
         android:layout_width="216dp"
@@ -59,26 +59,15 @@
         tools:layout_editor_absoluteX="84dp"
         tools:layout_editor_absoluteY="217dp" />
 
+
     <Button
         android:id="@+id/rButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="72dp"
-        android:text="Register"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="373dp" />
-
-    <ProgressBar
-
-        android:id="@+id/progressBarS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sButtonSign"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:visibility="gone" />
+        android:layout_marginBottom="58dp"
+        android:text="Register" />
 
     <TextView
         android:id="@+id/textView2"
@@ -86,7 +75,17 @@
         android:layout_height="33dp"
         android:layout_alignStart="@+id/mailText"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="125dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="121dp"
         android:text="Not jet registered? Do it here!" />
+
+    <ProgressBar
+
+        android:id="@+id/progressBarS"
+        android:layout_width="49dp"
+        android:layout_height="58dp"
+        android:layout_below="@+id/sButtonSign"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
 </RelativeLayout>
