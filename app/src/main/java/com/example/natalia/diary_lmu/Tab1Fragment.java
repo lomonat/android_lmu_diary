@@ -91,13 +91,6 @@ public class Tab1Fragment extends Fragment {
     }
 
     private void addDateTextView(){
-//        android:layout_width="match_parent"
-//        android:layout_height="48dp"
-//        android:layout_gravity="center"
-//        android:background="#0F4C3A"
-//        android:gravity="center_vertical|center_horizontal"
-//        android:text="14.12.2018  Friday  Sunny"
-//        android:textColor="#fff" />
 
         dateTextView =  new TextView(mContext);
 //        dateTextView.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -105,7 +98,7 @@ public class Tab1Fragment extends Fragment {
 
         dateTextView.setBackgroundColor(Color.parseColor("#0F4C3A"));
         dateTextView.setTextColor(Color.WHITE);
-        dateTextView.setText("test_date");
+        dateTextView.setText("08-Feb-19");
 
         dateTextView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
         LayoutParams params = new RelativeLayout.LayoutParams(
@@ -127,7 +120,7 @@ public class Tab1Fragment extends Fragment {
         view1.setLayoutParams(params);
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        storageRef.child(user.getUid()+ "/diarypics/"+user.getUid()+"diaryimage.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageRef.child(user.getUid()+ "/diarypics/"+user.getUid()+"_"+dateTextView.getText()+"_"+"diaryimage.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(view1);
@@ -135,12 +128,13 @@ public class Tab1Fragment extends Fragment {
                         "load image successed",
                         Toast.LENGTH_SHORT);
                 toast.show();
-                view1Url = storageRef.child(user.getUid()+ "/diarypics/"+user.getUid()+"diaryimage.jpg").getDownloadUrl().toString();
+                view1Url = storageRef.child(user.getUid()+ "/diarypics/"+user.getUid()+"_"+dateTextView.getText()+"_"+"diaryimage.jpg").getDownloadUrl().toString();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Picasso.get().load(R.drawable.food_simple).into(view1);
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(),
                         "load image failed" + e,
                         Toast.LENGTH_SHORT);
@@ -206,7 +200,7 @@ public class Tab1Fragment extends Fragment {
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        StorageReference view1Ref = FirebaseStorage.getInstance().getReference(user.getUid()+ "/diarypics/"+user.getUid()+"diaryimage.jpg");
+        StorageReference view1Ref = FirebaseStorage.getInstance().getReference(user.getUid()+ "/diarypics/"+user.getUid()+"_"+dateTextView.getText()+"_"+"diaryimage.jpg");
 
         if(imageUri != null){
 //            progressBar.setVisibility(View.VISIBLE);
