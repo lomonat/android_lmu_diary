@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,12 +53,15 @@ public class ProfileActivity extends AppCompatActivity {
     String profileImageUrl;
     TextView textView;
     TextView textVeri;
+    TextView notify;
     FirebaseUser user;
     private static final int CHOOSE_IMAGE = 101;
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference ref;
+
+    private String tempId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarP);
         textView = findViewById(R.id.textViewP);
         textVeri = findViewById(R.id.textViewVeri);
+        notify = findViewById(R.id.textViewNotify);
         user  = mAuth.getCurrentUser();
 
         userPic.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +101,17 @@ public class ProfileActivity extends AppCompatActivity {
                 mAuth.signOut();
                 Toast.makeText(ProfileActivity.this, "You Logged Out Successful", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+            }
+        });
+
+        if(notify == null){
+            Toast.makeText(this, "IM NULL", Toast.LENGTH_SHORT).show();
+        }
+
+        notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, NotificationActivity.class));
             }
         });
 
@@ -180,7 +196,10 @@ public class ProfileActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                telegramId.setText(dataSnapshot.getValue().toString());
+
+                if(dataSnapshot.getValue() != null) {
+                    telegramId.setText(dataSnapshot.getValue().toString());
+                }
 
             }
 
@@ -212,24 +231,34 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void saveUserInformation(){
-        String name = userName.getText().toString();
-        String id = telegramId.getText().toString();
+        String name;
+        String id;
+        if(userName.getText() != null && telegramId.getText()!= null ) {
+            name = userName.getText().toString();
+            id = telegramId.getText().toString();
 
-        if(name.isEmpty()){
-            userName.setError("Name required");
-            userName.requestFocus();
-            return;
+            if (name.isEmpty()) {
+                userName.setError("Name required");
+                userName.requestFocus();
+                return;
+            }
+
+            if (id.isEmpty()) {
+                telegramId.setError("The Telegram ID required");
+                telegramId.requestFocus();
+                return;
+            }
+
+            if (uploadId(id)) {
+                telegramId.setError("The Telegram ID is not correct");
+                telegramId.requestFocus();
+                return;
+            }
+
+        }else{
+            name = "Name";
+            id = "TelegramID";
         }
-
-        if(id.isEmpty()){
-            telegramId.setError("The Telegram ID required");
-            telegramId.requestFocus();
-            return;
-        }
-
-        uploadId(id);
-
-
         if(user != null && profileImageUrl != null){
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder().setDisplayName(name).setPhotoUri(Uri.parse(profileImageUrl)).build();
             user.updateProfile(profile).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -248,15 +277,53 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void uploadId(String id) {
-        ref = database.getReference("TelegramIds/user");
+    private boolean uploadId(String id) {
+            String myID = id;
+       if( checkTelegramId(myID)) {
 
-        //ToDo: cheking if the telegram ID is correkt
+           ref = database.getReference("TelegramIds/user");
 
-        DatabaseReference telegramRef = ref.child(""+user.getUid());
+           DatabaseReference telegramRef = ref.child("" + user.getUid());
 
-        telegramRef.child("TelegramId").setValue(id);
+           telegramRef.child("TelegramId").setValue(id);
+           return false;
+       }
+       return true;
+    }
 
+    private boolean checkTelegramId(String id) {
+        String mxID = id;
+        //cheking if the telegram ID is correkt
+        if(id.length() < 9){
+            telegramId.setError("The Telegram ID consists of 9 Numbers");
+            telegramId.requestFocus();
+            return false;
+        }
+
+        DatabaseReference ref = database.getReference("Names/users/" + mxID + "/Name");
+
+        // Attach a listener to read the data at our posts reference
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.getValue() != null) {
+                    tempId = dataSnapshot.getValue().toString();
+                }else{
+                    tempId = null;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(ProfileActivity.this, "The read failed: " + databaseError.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        if(tempId == null){
+            return false;
+        }
+        return true;
     }
 
     @Override

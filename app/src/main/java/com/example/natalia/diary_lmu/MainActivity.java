@@ -51,15 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onStart() {
         super.onStart();
 
-        Intent intent = new Intent(this.getBaseContext(), SendDataService.class);
-        startService(intent);
-
-
-      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(intent);
-        } else {
-            startService(intent);
-        }   */
         // Check if user is signed in (non-null) and update UI accordingly.
         if(mAuth.getCurrentUser() != null){
             finish();
