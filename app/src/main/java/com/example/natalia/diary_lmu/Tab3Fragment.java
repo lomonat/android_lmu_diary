@@ -69,7 +69,7 @@ public class Tab3Fragment extends Fragment {
 
     private Diary[] diaries = {
             new Diary(R.string.summary_day_1, R.drawable.ic_launcher_foreground,
-                    dateSelected),
+                    ""),
             new Diary(R.string.summary_day_2, R.drawable.ic_launcher_foreground,
                     ""),
             new Diary(R.string.summary_day_3, R.drawable.ic_launcher_foreground,
