@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth mAuth;
     EditText mailSign, passwordSign;
     ProgressBar progressBar;
+    DBInteraction dbInteraction = new DBInteraction();
+
 
 
     @Override
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.rButton).setOnClickListener(this);
         findViewById(R.id.sButton).setOnClickListener(this);
+
     }
 
     @Override
@@ -54,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          //   postData();
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }
+      //  dbInteraction.getData("day");
+
 
     }
 

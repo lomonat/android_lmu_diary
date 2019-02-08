@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -208,6 +209,26 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+    public void getData() {
+        // Read from the database
+        DatabaseReference ref = database.getReference("Names/users/" + user.getUid());
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Object value = dataSnapshot.getValue();
+                Log.d("yes", (String) value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("no", "Failed to read value.", error.toException());
+            }
+        });
+    }
 
     private void saveUserInformation(){
         String name;
@@ -247,7 +268,11 @@ public class ProfileActivity extends AppCompatActivity {
                         Toast.makeText(ProfileActivity.this, "Your profile is updated", Toast.LENGTH_SHORT).show();
                        if(user.isEmailVerified()) {
                            finish();
-                           startActivity(new Intent(ProfileActivity.this, HomeActivity.class));
+                           Bundle bundle = new Bundle();
+                           bundle.putString("userName", user.getDisplayName());
+                           Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+                           intent.putExtras(bundle);
+                           startActivity(intent);
                        }
                     }
                 }
