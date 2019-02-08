@@ -21,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Random;
 
 import static android.os.PowerManager.*;
 
@@ -64,6 +65,10 @@ public class Alarm extends BroadcastReceiver {
 
 
 // add the request object to the queue to be executed
+    }
+    public static String getRandom(String[] array) {
+        int rnd = new Random().nextInt(array.length);
+        return array[rnd];
     }
 
 }
