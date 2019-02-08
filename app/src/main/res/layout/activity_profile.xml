@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="81dp"
         android:text="Save Changes" />
 
 
@@ -76,8 +76,8 @@
         android:layout_height="37dp"
         android:layout_alignStart="@+id/editTextP"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="81dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="130dp"
         android:text="Verification"
         android:textStyle="bold" />
 
@@ -90,4 +90,16 @@
         android:layout_marginTop="-54dp"
         android:layout_toEndOf="@+id/editTextP"
         app:srcCompat="@android:drawable/ic_lock_idle_lock" />
+
+    <TextView
+        android:id="@+id/textViewNotify"
+        android:layout_width="211dp"
+        android:layout_height="34dp"
+        android:layout_alignStart="@+id/imageViewP"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="17dp"
+        android:text="Notifications"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
 </RelativeLayout>

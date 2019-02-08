@@ -52,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
     String profileImageUrl;
     TextView textView;
     TextView textVeri;
+    TextView notify;
     FirebaseUser user;
     private static final int CHOOSE_IMAGE = 101;
 
@@ -76,6 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarP);
         textView = findViewById(R.id.textViewP);
         textVeri = findViewById(R.id.textViewVeri);
+        notify = findViewById(R.id.textViewNotify);
         user  = mAuth.getCurrentUser();
 
         userPic.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +100,17 @@ public class ProfileActivity extends AppCompatActivity {
                 mAuth.signOut();
                 Toast.makeText(ProfileActivity.this, "You Logged Out Successful", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+            }
+        });
+
+        if(notify == null){
+            Toast.makeText(this, "IM NULL", Toast.LENGTH_SHORT).show();
+        }
+
+        notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, NotificationActivity.class));
             }
         });
 
