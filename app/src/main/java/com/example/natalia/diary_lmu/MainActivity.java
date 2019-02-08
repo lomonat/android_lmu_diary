@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          //   postData();
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }
-        dbInteraction.getData();
+      //  dbInteraction.getData("day");
 
 
     }

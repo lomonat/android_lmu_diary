@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1074194858286",
+    "firebase_url": "https://contentdatabase-ff384.firebaseio.com",
+    "project_id": "contentdatabase-ff384",
+    "storage_bucket": "contentdatabase-ff384.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074194858286:android:818e0a123e04e64f",
+        "android_client_info": {
+          "package_name": "com.example.natalia.diary_lmu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074194858286-lae7pecfa3npjeaetrajh2ck03sntkr0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.natalia.diary_lmu",
+            "certificate_hash": "542ec1fb0d5294982637fd6116a788db304c9646"
+          }
+        },
+        {
+          "client_id": "1074194858286-oluekjouh7arnv4o1q61800o82768152.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.natalia.diary_lmu",
+            "certificate_hash": "a09a1dc23b709c42d0bca89633b0024603423aa5"
+          }
+        },
+        {
+          "client_id": "1074194858286-2hvssv79j829mm5qh8s8llp8ssr97b10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOv6dEHlRAlHSIHs0iQGY7DEZ8QvXPPIw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074194858286-2hvssv79j829mm5qh8s8llp8ssr97b10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
