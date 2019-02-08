@@ -23,7 +23,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import static android.os.PowerManager.*;
-
+import static com.example.natalia.diary_lmu.SendDataService.getRandom;
 
 public class Alarm extends BroadcastReceiver {
     //the method will be fired when the alarm is triggerred
