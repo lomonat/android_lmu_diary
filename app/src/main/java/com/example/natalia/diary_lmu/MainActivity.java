@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseAuth mAuth;
     EditText mailSign, passwordSign;
     ProgressBar progressBar;
+    DBInteraction dbInteraction = new DBInteraction();
+
 
 
     @Override
@@ -42,27 +44,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.rButton).setOnClickListener(this);
         findViewById(R.id.sButton).setOnClickListener(this);
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        Intent intent = new Intent(this.getBaseContext(), SendDataService.class);
-        startService(intent);
-
-
-      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(intent);
-        } else {
-            startService(intent);
-        }   */
         // Check if user is signed in (non-null) and update UI accordingly.
         if(mAuth.getCurrentUser() != null){
             finish();
          //   postData();
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }
+      //  dbInteraction.getData("day");
+
 
     }
 

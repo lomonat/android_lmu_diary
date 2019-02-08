@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
     String profileImageUrl;
     TextView textView;
     TextView textVeri;
+    TextView notify;
     FirebaseUser user;
     private static final int CHOOSE_IMAGE = 101;
 
@@ -76,6 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarP);
         textView = findViewById(R.id.textViewP);
         textVeri = findViewById(R.id.textViewVeri);
+        notify = findViewById(R.id.textViewNotify);
         user  = mAuth.getCurrentUser();
 
         userPic.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +101,17 @@ public class ProfileActivity extends AppCompatActivity {
                 mAuth.signOut();
                 Toast.makeText(ProfileActivity.this, "You Logged Out Successful", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+            }
+        });
+
+        if(notify == null){
+            Toast.makeText(this, "IM NULL", Toast.LENGTH_SHORT).show();
+        }
+
+        notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, NotificationActivity.class));
             }
         });
 
@@ -192,6 +206,26 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(ProfileActivity.this, "The read failed: " + databaseError.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public void getData() {
+        // Read from the database
+        DatabaseReference ref = database.getReference("Names/users/" + user.getUid());
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                Object value = dataSnapshot.getValue();
+                Log.d("yes", (String) value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("no", "Failed to read value.", error.toException());
             }
         });
     }
