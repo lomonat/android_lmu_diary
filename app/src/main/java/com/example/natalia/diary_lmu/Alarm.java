@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Random;
 
 import static android.os.PowerManager.*;
-import static com.example.natalia.diary_lmu.SendDataService.getRandom;
 
 public class Alarm extends BroadcastReceiver {
     //the method will be fired when the alarm is triggerred
